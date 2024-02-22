@@ -9,17 +9,18 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
-    #ports:
-    #  - '3306:3306'
-    #expose:
-    #  - '3306'
-    network_mode: host
     volumes:
       - ./mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
     healthcheck:
             test: ["CMD", "mysqladmin", "-uuser", "-ppassword", "ping", "-h", "localhost"]
             timeout: 15s
             retries: 3
+    network_mode: host
+    deploy:
+      resources:
+        limits:
+          #cpus: ""
+          memory: "270MB"
 
   nginx:
     image: nginx
@@ -30,8 +31,12 @@ services:
       - app1
       - app2
     network_mode: host
-    #ports:
-    #  - 9999:9999
+    deploy:
+      resources:
+        limits:
+          #cpus: ""
+          memory: "20MB"
+
 
   app1: &app1
     image: rinha
@@ -44,11 +49,11 @@ services:
     environment:
       - PORT=5001
       #- DB_HOST=dbmysql
-      - DB_NAME=rinha
-      - DB_USER=user
-      - DB_PASS=password
-      - DB_CONN_LIMIT=15
-      - FORCE_JUST_5_CLIENTS=true
+    deploy:
+      resources:
+        limits:
+          #cpus: ""
+          memory: "130MB"
     
   app2:
     <<: *app1
@@ -56,12 +61,6 @@ services:
     network_mode: host
     environment:
       - PORT=5002
-      #- DB_HOST=dbmysql
-      - DB_NAME=rinha
-      - DB_USER=user
-      - DB_PASS=password
-      - DB_CONN_LIMIT=15
-      - FORCE_JUST_5_CLIENTS=true
 
 
 
