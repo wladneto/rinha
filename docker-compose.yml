@@ -9,10 +9,11 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+    #ports:
+    #  - '3306:3306'
+    #expose:
+    #  - '3306'
+    network_mode: host
     volumes:
       - ./mysql-init.sql:/docker-entrypoint-initdb.d/mysql-init.sql
     healthcheck:
@@ -28,8 +29,9 @@ services:
     depends_on:
       - app1
       - app2
-    ports:
-      - 9999:9999
+    network_mode: host
+    #ports:
+    #  - 9999:9999
 
   app1: &app1
     image: rinha
@@ -38,9 +40,10 @@ services:
     depends_on:
       dbmysql:
         condition: service_healthy
+    network_mode: host
     environment:
       - PORT=5001
-      - DB_HOST=dbmysql
+      #- DB_HOST=dbmysql
       - DB_NAME=rinha
       - DB_USER=user
       - DB_PASS=password
@@ -50,9 +53,10 @@ services:
   app2:
     <<: *app1
     hostname: app2
+    network_mode: host
     environment:
       - PORT=5002
-      - DB_HOST=dbmysql
+      #- DB_HOST=dbmysql
       - DB_NAME=rinha
       - DB_USER=user
       - DB_PASS=password

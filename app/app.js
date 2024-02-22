@@ -12,13 +12,6 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json())
 
-app.use(function (req, res, next) {
-    res.removeHeader("x-powered-by");
-    res.removeHeader("Server");
-    res.removeHeader("Connection");
-    next();
-});
-
 const clienteRouter = require('./routes/cliente')
 app.use('/clientes', clienteRouter)
 
