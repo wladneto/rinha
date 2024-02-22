@@ -9,10 +9,8 @@ const transacaoService = {
             reject(error);
         }
 
-
         const connection = await pool.getConnection();
-        //await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
-        //set wait timeout and lock wait timeout as per need.
+
         await connection.beginTransaction();
         try {
 
@@ -51,9 +49,6 @@ const transacaoService = {
 
             await connection.commit();
 
-
-            //console.log("tabelaClienteAtualizada - ", tabelaClienteAtualizada)
-
             //insere transacao na tabela transacao
             let tabelaTransacoesInserida = await connection.execute('INSERT INTO transacoes(cliente_id, valor, tipo, descricao, realizada_em) VALUES(?, ?, ?, ?, NOW())', [clienteid, valor, tipo, descricao]);
 
@@ -62,9 +57,6 @@ const transacaoService = {
                 error.status = 422
                 throw error;
             }
-
-            //console.log("tabelaTransacoesInserida - ", tabelaTransacoesInserida)
-
 
             resolve({
                 "limite": limite,

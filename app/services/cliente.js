@@ -15,8 +15,6 @@ const clienteService = {
 
 async function listClients() {
     const connection = await pool.getConnection();
-    await connection.execute('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
-    //console.log('Finished setting the isolation level to read committed');
     await connection.beginTransaction();
     try {
         let clients = await connection.execute(`SELECT * FROM clientes`);
@@ -26,7 +24,6 @@ async function listClients() {
         return clients[0];
     } catch (err) {
         connection.rollback();
-        console.info('Rollback successful');
         return 'Error';
     }
 }

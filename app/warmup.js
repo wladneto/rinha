@@ -6,7 +6,7 @@ const WARM_UP_TIMES = process.env.DB_CONN_LIMIT || 30
 
 async function warmup() {
     try {
-        console.log("WarmUp started ")
+        console.log("\nWarmUp started")
         for (let i = 0; i < WARM_UP_TIMES; i++) {
             await axios.get(`http://localhost:${PORT}/clientes/1/extrato`);
             await axios.get(`http://localhost:${PORT}/clientes/2/extrato`);
@@ -14,7 +14,7 @@ async function warmup() {
             await axios.get(`http://localhost:${PORT}/clientes/4/extrato`);
             await axios.get(`http://localhost:${PORT}/clientes/5/extrato`);
         }
-        console.log("WarmUp finished 🔥")
+        console.log("WarmUp finished 🔥\n")
     } catch (error) {
         console.error('Erro durante o WarmUp:', error);
     }
