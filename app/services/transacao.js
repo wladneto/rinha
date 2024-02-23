@@ -65,7 +65,7 @@ const transacaoService = {
 
         } catch (err) {
             await connection.rollback();
-            console.info('Rollback successful');
+            //console.info('Rollback successful');
             reject(err)
         } finally {
             await connection.release();

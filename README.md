@@ -1,3 +1,12 @@
-# rinha
+# Rinha de Backend
 
-GATLING_BIN_DIR=$HOME/Downloads/gatling/bin
+[Repositório](https://github.com/wladneto/rinha)
+
+## Stack
+
+- `nginx` Load Balancer
+- `mySQL` Banco de dados
+- `nodeJS` API
+    - `express`
+    -  `js`
+

@@ -19,7 +19,7 @@ services:
     deploy:
       resources:
         limits:
-          #cpus: ""
+          #cpus: "0.55"
           memory: "270MB"
 
   nginx:
@@ -34,12 +34,11 @@ services:
     deploy:
       resources:
         limits:
-          #cpus: ""
+          #cpus: "0.45"
           memory: "20MB"
 
-
   app1: &app1
-    image: rinha
+    image: wladimirteixeiraneto/rinha:latest
     hostname: app1
     restart: on-failure
     depends_on:
@@ -52,7 +51,7 @@ services:
     deploy:
       resources:
         limits:
-          #cpus: ""
+          #cpus: "0.25"
           memory: "130MB"
     
   app2:
